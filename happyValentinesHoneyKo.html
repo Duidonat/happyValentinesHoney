@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Valentine’s, Honey 💌</title>
+
+  <style>
+    :root{
+      --bg1:#0f0a12;
+      --bg2:#1a0f1f;
+      --card:#ffffff10;
+      --border:#ffffff22;
+      --text:#fff;
+      --soft:#ffffffcc;
+      --accent:#ff4d6d;
+      --accent2:#ff8fab;
+    }
+    *{box-sizing:border-box}
+    html, body{height:100%}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 20%, #3a1647 0%, transparent 55%),
+        radial-gradient(900px 700px at 80% 30%, #5a1630 0%, transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+      padding: 18px; /* helps on small screens */
+    }
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      width:14px;height:14px;
+      background:var(--accent);
+      transform: rotate(45deg);
+      opacity:.8;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 6px 10px #00000055);
+      pointer-events:none;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      background:var(--accent);
+      border-radius:50%;
+    }
+    .heart:before{left:-7px; top:0}
+    .heart:after{top:-7px; left:0}
+    @keyframes floatUp{
+      from{ transform:translateY(20vh) rotate(45deg); }
+      to{ transform:translateY(-120vh) rotate(45deg); }
+    }
+
+    /* SINGLE COLUMN wrapper (mobile-first) */
+    .wrap{
+      width: min(920px, 100%);
+      display:grid;
+      gap:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px #00000055;
+    }
+
+    /* Better spacing/typography for mobile */
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(24px, 7vw, 40px);
+      line-height: 1.12;
+      letter-spacing:.2px;
+      word-break: break-word;
+    }
+    .subtitle{
+      margin:0 0 14px;
+      color:var(--soft);
+      line-height:1.55;
+      font-size: clamp(14px, 3.8vw, 16px);
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#ffffff0a;
+      color:var(--soft);
+      font-size:13px;
+      margin-bottom:12px;
+      width:max-content;
+      max-width:100%;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 12px #ff4d6d88;
+      flex:0 0 auto;
+    }
+
+    .msg{
+      margin:12px 0 0;
+      padding:14px;
+      border-radius:14px;
+      border:1px dashed #ffffff33;
+      background:#00000022;
+      line-height:1.7;
+      color:var(--soft);
+      font-size: clamp(14px, 3.8vw, 15.5px);
+    }
+    .msg b{color:#fff}
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    /* On phones: buttons full width */
+    @media (max-width: 520px){
+      .actions{flex-direction:column}
+      button{width:100%}
+      .card{padding:16px}
+    }
+
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius:12px;
+      padding:12px 14px;
+      font-weight:700;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 10px 24px #ff4d6d33;
+      font-size: 14px;
+    }
+    button.secondary{
+      background:#ffffff12;
+      border:1px solid var(--border);
+      color:var(--soft);
+      box-shadow:none;
+      font-weight:700;
+    }
+
+    .reveal{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#ffffff0a;
+      color:var(--soft);
+      line-height:1.65;
+      display:none;
+      font-size: clamp(14px, 3.8vw, 15px);
+    }
+    .reveal.show{display:block}
+
+    .codebox{
+      margin-top:12px;
+      background:#0b0610cc;
+      border:1px solid #ffffff1f;
+      border-radius:14px;
+      padding:12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: clamp(12px, 3.2vw, 13px);
+      line-height: 1.55;
+      color:#e9d7ff;
+      overflow:auto;
+      max-height: 260px; /* shorter for phones */
+      -webkit-overflow-scrolling: touch;
+    }
+    .kw{color:#7dd3fc}
+    .fn{color:#fda4af}
+    .str{color:#86efac}
+    .num{color:#fbbf24}
+
+    .tiny{
+      margin-top:10px;
+      color:#ffffffaa;
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    /* Optional: reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce){
+      .heart{animation:none}
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // floating hearts (lighter count on mobile)
+    const makeHearts = () => {
+      const isMobile = matchMedia("(max-width: 520px)").matches;
+      const n = isMobile ? 16 : 28;
+      for(let i=0;i<n;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        const left=Math.random()*100;
+        const dur=8+Math.random()*10;
+        const delay=Math.random()*-dur;
+        const size=10+Math.random()*16;
+        h.style.left = left + 'vw';
+        h.style.animationDuration = dur + 's';
+        h.style.animationDelay = delay + 's';
+        h.style.width = size+'px';
+        h.style.height = size+'px';
+        h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
+        document.body.appendChild(h);
+      }
+    };
+    makeHearts();
+  </script>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="badge"><span class="dot"></span> Valentine’s build: <b>Maria + Joshua</b></div>
+
+      <h1>Hi Honey, Maria Christina S. Faciolan 💌</h1>
+
+      <p class="subtitle">
+        I coded this for you because you deserve something soft, thoughtful, and made just for you with the help of AI syempre heheh.
+        <b>Happy Valentine’s Day</b>, honey.
+      </p>
+
+      <div class="msg" id="message">
+        <b>To my Honey, Maria Christina S. Faciolan,</b><br/>
+        Happy Valentine’s Day. I just want you to know I appreciate you more than I can explain.
+        Thank you for being patient with me, for making my days better, and for being my comfort.
+        <br/><br/>
+        No matter how busy life gets, I’m always here supporting you through our ups and downs, listening to you, and choosing you every day.
+        <br/><br/>
+        Love you, honey.<br/>
+        <b>— Joshua V. Sagardui</b>
+      </div>
+
+      <div class="actions">
+        <button id="btnReveal" type="button">Click for a secret</button>
+        <button class="secondary" id="btnCopy" type="button">Copy message</button>
+      </div>
+
+      <div class="reveal" id="revealBox">
+        <b>Secret, honey:</b> If love was code, you’d be my favorite function because you keep returning peace, happiness,
+        and the feeling that everything will be okay.
+        <br/><br/>
+        And if I had to choose again, I’d still choose you every single time.
+      </div>
+
+      <div class="codebox" aria-label="cute code block">
+<span class="kw">const</span> love = {
+  to: <span class="str">"Maria Christina S. Faciolan"</span>,
+  from: <span class="str">"Joshua V. Sagardui"</span>,
+  nickname: <span class="str">"honey"</span>,
+  promises: [
+    <span class="str">"listen even when it’s hard"</span>,
+    <span class="str">"support your dreams"</span>,
+    <span class="str">"choose you daily"</span>,
+    <span class="str">"love you gently"</span>
+  ],
+  intensity: <span class="num">Infinity</span>
+};
+
+<span class="kw">function</span> <span class="fn">forever</span>() {
+  <span class="kw">return</span> <span class="str">"I love you, honey. Always."</span>;
+}
+      </div>
+
+      <div class="tiny">
+        <b></b> 
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const btnReveal = document.getElementById('btnReveal');
+    const revealBox = document.getElementById('revealBox');
+    btnReveal.onclick = () => revealBox.classList.toggle('show');
+
+    const btnCopy = document.getElementById('btnCopy');
+    btnCopy.onclick = async () => {
+      const text = document.getElementById('message').innerText;
+      try{
+        await navigator.clipboard.writeText(text);
+        btnCopy.textContent = "Copied!";
+        setTimeout(()=> btnCopy.textContent="Copy message", 1200);
+      }catch(e){
+        alert("Copy failed. Just select the text and copy manually.");
+      }
+    };
+  </script>
+</body>
+</html>
